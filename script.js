@@ -2,6 +2,7 @@ let firstNumber = null;
 let operator = null;
 let secondNumber = null;
 let displayValue = "0"; // default value on calc screen
+let shouldRestDisplay = false;
 
 function add(a, b) {
   return a + b;
@@ -39,3 +40,41 @@ function operate(operator, a, b) {
       return "Error";
   }
 }
+
+// event listeners
+function updateDisplay() {
+  const displayElement = document.querySelector(".display");
+  displayElement.textContent = displayValue;
+}
+
+function inputDigit(digit) {
+  if (shouldRestDisplay) {
+    displayValue = digit;
+    shouldRestDisplay = false;
+  } else {
+    displayValue = displayValue === "0" ? digit : displayValue + digit;
+  }
+  updateDisplay();
+}
+
+function inputDecimal() {
+  if (shouldRestDisplay) {
+    displayValue = "0.";
+    shouldRestDisplay = false;
+  } else if (!displayValue.includes(".")) {
+    displayValue += ".";
+  }
+  updateDisplay();
+}
+
+document.querySelectorAll(".digit").forEach((button) => {
+  if (!button.classList.contains("decimal")) {
+    button.addEventListener("click", () => {
+      inputDigit(button.getAttribute("data-digit"));
+    });
+  }
+});
+
+document.querySelector(".decimal").addEventListener("click", inputDecimal);
+
+updateDisplay();
