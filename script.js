@@ -41,7 +41,7 @@ function operate(operator, a, b) {
   }
 }
 
-// event listeners
+// event listeners for digits + decimal
 function updateDisplay() {
   const displayElement = document.querySelector(".display");
   displayElement.textContent = displayValue;
@@ -78,3 +78,34 @@ document.querySelectorAll(".digit").forEach((button) => {
 document.querySelector(".decimal").addEventListener("click", inputDecimal);
 
 updateDisplay();
+
+// event listeners for operators + equal sign + toggleSign + clear
+function handleOperator(nextOperator) {
+  const inputValue = parseFloat(displayValue);
+
+  if (firstNumber !== null && operator !== null) {
+    const result = operate(operator, firstNumber, inputValue);
+    displayValue = String(result);
+    firstNumber = result;
+  } else {
+    firstNumber = inputValue;
+  }
+
+  shouldRestDisplay = true;
+  operator = nextOperator;
+  updateDisplay();
+}
+
+function handleEquals() {
+  if (firstNumber === null || operator === null) return;
+
+  const inputValue = parseFloat(displayValue);
+  let result = operate(operator, firstNumber, inputValue);
+
+  displayValue = String(result);
+  updateDisplay();
+
+  firstNumber = null;
+  operator = null;
+  shouldRestDisplay = true;
+}
