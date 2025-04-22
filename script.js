@@ -109,3 +109,12 @@ function handleEquals() {
   operator = null;
   shouldResetDisplay = true;
 }
+
+function clear() {
+  displayValue = "0";
+  firstNumber = null;
+  operator = null;
+  shouldResetDisplay = false;
+
+  updateDisplay();
+}
