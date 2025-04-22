@@ -2,7 +2,7 @@ let firstNumber = null;
 let operator = null;
 let secondNumber = null;
 let displayValue = "0"; // default value on calc screen
-let shouldRestDisplay = false;
+let shouldResetDisplay = false;
 
 function add(a, b) {
   return a + b;
@@ -48,9 +48,9 @@ function updateDisplay() {
 }
 
 function inputDigit(digit) {
-  if (shouldRestDisplay) {
+  if (shouldResetDisplay) {
     displayValue = digit;
-    shouldRestDisplay = false;
+    shouldResetDisplay = false;
   } else {
     displayValue = displayValue === "0" ? digit : displayValue + digit;
   }
@@ -58,9 +58,9 @@ function inputDigit(digit) {
 }
 
 function inputDecimal() {
-  if (shouldRestDisplay) {
+  if (shouldResetDisplay) {
     displayValue = "0.";
-    shouldRestDisplay = false;
+    shouldResetDisplay = false;
   } else if (!displayValue.includes(".")) {
     displayValue += ".";
   }
@@ -91,7 +91,7 @@ function handleOperator(nextOperator) {
     firstNumber = inputValue;
   }
 
-  shouldRestDisplay = true;
+  shouldResetDisplay = true;
   operator = nextOperator;
   updateDisplay();
 }
@@ -107,5 +107,5 @@ function handleEquals() {
 
   firstNumber = null;
   operator = null;
-  shouldRestDisplay = true;
+  shouldResetDisplay = true;
 }
