@@ -135,3 +135,21 @@ function roundResult(number) {
 
   return Math.round(number * 100000000) / 100000000;
 }
+
+// Add event listeners for special buttons
+document.querySelector(".clear").addEventListener("click", clear);
+document.querySelector(".sign").addEventListener("click", toggleSign);
+document.querySelector(".equals").addEventListener("click", handleEquals);
+
+// Percent button: convert current display value to percent
+document.querySelector(".percent").addEventListener("click", () => {
+  displayValue = String(parseFloat(displayValue) / 100);
+  updateDisplay();
+});
+
+// Add event listeners for operator buttons
+document.querySelectorAll(".operator").forEach((button) => {
+  button.addEventListener("click", () => {
+    handleOperator(button.getAttribute("data-op"));
+  });
+});
