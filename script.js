@@ -21,24 +21,30 @@ function divide(a, b) {
 }
 
 function operate(operator, a, b) {
-  a = Number(a);
-  b = Number(b);
+  let result;
 
   switch (operator) {
     case "+":
-      return add(a, b);
+      result = add(a, b);
+      break;
     case "-":
-      return subtract(a, b);
+      result = subtract(a, b);
+      break;
     case "*":
-      return multiply(a, b);
+      result = multiply(a, b);
+      break;
     case "/":
+      // Handle division by zero
       if (b === 0) {
-        return "Error";
+        return "Error: Cannot divide by zero!";
       }
-      return divide(a, b);
+      result = divide(a, b);
+      break;
     default:
       return "Error";
   }
+
+  return roundResult(result);
 }
 
 // event listeners for digits + decimal
@@ -122,4 +128,10 @@ function clear() {
 function toggleSign() {
   displayValue = String(parseFloat(displayValue) * -1);
   updateDisplay();
+}
+
+function roundResult(number) {
+  if (typeof number !== "number") return number;
+
+  return Math.round(number * 100000000) / 100000000;
 }
