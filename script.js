@@ -118,3 +118,8 @@ function clear() {
 
   updateDisplay();
 }
+
+function toggleSign() {
+  displayValue = String(parseFloat(displayValue) * -1);
+  updateDisplay();
+}
